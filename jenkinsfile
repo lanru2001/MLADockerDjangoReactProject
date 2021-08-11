@@ -1,0 +1,29 @@
+stage('Git Clone') {
+      steps {
+        script {
+            git branch: master,
+              credentialsId: <your credentials id>,
+              url: <your github url>
+        }
+      }
+    }
+    
+stage('Docker Build') {
+      steps {
+        script {
+            docker.build('<your-image-name>')
+        }
+      }
+    }
+    
+stage('docker push SG') {
+      steps {
+        script {
+          withAWS(region: 'ap-southeast-1', credentials: 'awsId') {
+            sh "${ecrLogin()}"
+            sh "docker tag <your-image-name> <your-ecr-uri>"
+            sh "docker push <your-ecr-uri>"
+          }
+        }
+      }
+    }
