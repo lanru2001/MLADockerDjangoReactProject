@@ -23,3 +23,17 @@ class IRIS_Model_Predict(APIView):
         y_pred = y_pred.map(target_map).to_numpy()
         response_dict = {"Predicted Iris Species": y_pred[0]}
         return Response(response_dict, status=200)
+
+    
+
+from rest_auth.views import (LoginView, LogoutView)
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
+# Create your views here.
+class APILogoutView(LogoutView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+class APILoginView(LoginView):
+    pass    
