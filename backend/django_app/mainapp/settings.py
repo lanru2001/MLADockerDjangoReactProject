@@ -7,3 +7,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'prediction',
 ]
+
+#########################################
+    ##  IMPORT LOCAL SETTINGS ##
+#########################################
+
+try:
+    from .local_settings import * 
+except ImportError: 
+    pass 
