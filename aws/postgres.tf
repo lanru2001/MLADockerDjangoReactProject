@@ -1,6 +1,6 @@
 #Create a Database Using the RDS Instance in AWS
 
-resource "aws_db_instance" "app_db" {
+resource "aws_db_instance" "mla_db" {
   
   count                           = var.create ? 1 : 0
   identifier                      = var.identifier
