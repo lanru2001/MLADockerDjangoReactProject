@@ -1,5 +1,6 @@
 #ALB security group 
-resource "aws_security_group"  "feather_alb" {
+
+resource "aws_security_group"  "mla_alb" {
   name   = "${var.name}-alb"
   vpc_id = aws_vpc.app_vpc.id
  
@@ -43,7 +44,7 @@ resource "aws_security_group"  "feather_alb" {
 
 }
 
-resource "aws_security_group" "feather_service" {
+resource "aws_security_group" "mla_service" {
   name   = "${var.name}-service"
   vpc_id = aws_vpc.app_vpc.id
 	
