@@ -1,29 +1,29 @@
 #Cloudwatch log group 
-resource "aws_cloudwatch_log_group" "feather_log" {
+resource "aws_cloudwatch_log_group" "mla_log" {
   name              = var.cloudwatch_log_group_name
   retention_in_days = 30
 }
 
 #Cloudwatch log stream 
-resource "aws_cloudwatch_log_stream" "feather_stream" {
+resource "aws_cloudwatch_log_stream" "mla_stream" {
   name           = var.cloudwatch_log_stream 
   log_group_name = aws_cloudwatch_log_group.feather_log.name
 }
 
 
 #ALB 
-resource "aws_lb" "feather_lb" {
+resource "aws_lb" "mla_lb" {
   name               = "${var.name}-lb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [ aws_security_group.feather_alb.id ]
+  security_groups    = [ aws_security_group.mla_alb.id ]
   subnets            = [ aws_subnet.app_public_subnets[0].id, aws_subnet.app_public_subnets[1].id ]
           
   enable_deletion_protection = false
 }
 
 #ALB target group
-resource "aws_alb_target_group" "feather_alb_tg_group" {
+resource "aws_alb_target_group" "mla_alb_tg_group" {
   name         = "${var.name}-tg"
   port         = 80
 
@@ -40,24 +40,24 @@ resource "aws_alb_target_group" "feather_alb_tg_group" {
     unhealthy_threshold = "2"
   }
 
-  depends_on =  [ aws_lb.feather_lb ]
+  depends_on =  [ aws_lb.mla_lb ]
 }
 
 resource "aws_alb_listener" "ecs_alb_http_listner" {
-  load_balancer_arn = aws_lb.feather_lb.id
+  load_balancer_arn = aws_lb.mla_lb.id
   port              = 80
   protocol          = "HTTP"
 
   default_action {
     type = "forward"
-    target_group_arn = aws_alb_target_group.feather_alb_tg_group.arn
+    target_group_arn = aws_alb_target_group.mla_alb_tg_group.arn
   }
 
-  depends_on        = [ aws_alb_target_group.feather_alb_tg_group ]
+  depends_on        = [ aws_alb_target_group.mla_alb_tg_group ]
 }
 
 #ECS Cluster 
-resource "aws_ecs_cluster" "feather_cluster" {
+resource "aws_ecs_cluster" "mla_cluster" {
   name = "${var.name}-cluster"
 }
 
@@ -108,9 +108,9 @@ EOF
 
 
 #ECS Service 
-resource "aws_ecs_service" "app_service" {
+resource "aws_ecs_service" "mla_service" {
   name                               = "${var.name}-service" 
-  cluster                            = aws_ecs_cluster.feather_cluster.id
+  cluster                            = aws_ecs_cluster.mla_cluster.id
   task_definition                    = aws_ecs_task_definition.node_definition[0].arn
   desired_count                      = 1
   launch_type                        = "FARGATE" 
@@ -119,17 +119,17 @@ resource "aws_ecs_service" "app_service" {
   deployment_minimum_healthy_percent = 50
   deployment_maximum_percent         = 200
   #health_check_grace_period_seconds  = 60   
-  #iam_role                           = aws_iam_role.feather_svc.arn  
+  #iam_role                           = aws_iam_role.mla_svc.arn  
   depends_on                         = [ aws_iam_role.feather_svc ] 
 
   network_configuration {
-    security_groups  = [ aws_security_group.feather_alb.id, aws_security_group.feather_service.id ]
+    security_groups  = [ aws_security_group.mla_alb.id, aws_security_group.mla_service.id ]
     subnets          = [ aws_subnet.app_public_subnets[0].id ,  aws_subnet.app_public_subnets[1].id ]
     assign_public_ip = true
   }
 
   load_balancer {
-    target_group_arn = aws_alb_target_group.feather_alb_tg_group.arn
+    target_group_arn = aws_alb_target_group.mla_alb_tg_group.arn
     container_name   = "${local.environment_prefix}-app"
     container_port   = var.node_container_port
   }
