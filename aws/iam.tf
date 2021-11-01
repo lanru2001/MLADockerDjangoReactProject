@@ -93,7 +93,7 @@ resource "aws_iam_role"  "feather_svc" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "feather_svc_policy" {
+resource "aws_iam_role_policy_attachment" "mla_svc_policy" {
   role       = aws_iam_role.feather_svc.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceRole"
 }
