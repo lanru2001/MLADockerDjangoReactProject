@@ -2,12 +2,13 @@ This project is a simple machine learning application with Django REST framework
 
 Prerequisites:
 - Python 3.7 + 
-- JavaScript
+- Javascript 
 - HTML
 - CSS 
 - Basic Linux commands
 - Docker
 
+#Tech stack 
 Backend 
 – Django 
 - Django REST framework
