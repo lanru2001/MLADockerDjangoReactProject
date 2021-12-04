@@ -1,4 +1,5 @@
-#docker-compose defines four services – django, db, react and nginx.
+# docker-compose defines four services – django, db, react and nginx.
+# The docker-compose also defines three volumes – postgres_data, django_static_volume and react_static_volume.
 
 version: "3.7"
 
