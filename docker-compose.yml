@@ -19,8 +19,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-       - .env
-       #- ./postgres/.env
+      - ./postgres/.env
   react:
     build:
       context: ./frontend
