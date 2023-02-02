@@ -1,15 +1,15 @@
 module "ecs-qa" {
-
-  source                    = ../..  
+  
+  source                    = ../..    
   vpc_cidr                  = "172.16.0.0/16"
-  public_subnets_cidr       = [ "172.16.6.0/24" , "172.16.7.0/24" ]
-  private_subnets_cidr      = [ "172.16.8.0/24" , "172.16.9.0/24" ]
+  public_subnets_cidr       = [ "192.168.6.0/24" , "192.168.7.0/24" ]
+  private_subnets_cidr      = [ "192.168.8.0/24" , "192.168.9.0/24" ]
   create                    = true
   name                      = "node"
   namespace                 = "dynamic"
   docker_image              = "873079457075.dkr.ecr.us-east-2.amazonaws.com/node-test-app"
   environment               = "nodejs"
-  stage                     = "staging"
+  stage                     = "prod"
   aws_region                = "us-east-2"
   azs                       = ["us-east-2a" , "us-east-2b"]
   cloudwatch_log_group_name = "ecs/dynamic-nodejs-dev"
