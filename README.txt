@@ -1,4 +1,4 @@
-#Build a fully production ready machine learning app with React, Django, and PostgreSQL on Docker.
+## Build a fully production ready machine learning app with React, Django, and PostgreSQL on Docker.
 
 1. This project is a simple machine learning application with Django REST framework, which predicts the species of a sample flower based on measurements of its features i.e the sepal and petal dimensions – length and width.
 
@@ -7,7 +7,7 @@ The react service sends the API_SERVER variable to the production build version 
 
 3 The nginx service in the Dockerfile section serves both our django and react services. 
 
-Prerequisites:
+## Prerequisites:
 - Python 3.7 + 
 - Javascript 
 - HTML
@@ -15,13 +15,13 @@ Prerequisites:
 - Basic Linux commands
 - Docker
 
-#Tech stack 
+## Tech stack 
 Backend 
 – Django 
 - Django REST framework
 - PostgresSQL
 
-Frontend 
+#Frontend 
 – React 
 
 source: https://datagraphi.com/blog/post/2020/8/30/docker-guide-build-a-fully-production-ready-machine-learning-app-with-react-django-and-postgresql-on-docker
