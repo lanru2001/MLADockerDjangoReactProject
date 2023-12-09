@@ -1,5 +1,5 @@
 
-module "ecs-qa" {
+module "ecs_qa" {
 
   source                    = ../..  
   vpc_cidr                  = "172.16.0.0/16"
