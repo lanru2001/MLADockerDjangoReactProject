@@ -1,4 +1,4 @@
-module "ecs-dev" {
+module "ecs_dev" {
 
   source                    = ../..
   vpc_cidr                  = "172.31.0.0/16"
